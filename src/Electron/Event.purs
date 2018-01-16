@@ -1,14 +1,10 @@
-module Electron.Event
-  ( Event
-  , preventDefault
-  , stopPropagation
-  ) where
+module Electron.Event (Event, preventDefault, stopPropagation) where
 
 import Prelude (Unit)
 import Control.Monad.Eff (Eff)
 import Electron (ELECTRON)
 
-foreign import data Event :: *
+foreign import data Event :: Type
 
 foreign import preventDefault :: forall e. Event -> Eff (electron :: ELECTRON | e) Unit
 
