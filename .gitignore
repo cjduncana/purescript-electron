@@ -1,6 +1,10 @@
+# Purescript generated files
+
 /bower_components/
 /node_modules/
 /.pulp-cache/
-/output/
-/.psci*
-/src/.webpack.js
+**/output/
+/generated-docs/
+/.psc*
+/.purs*
+/.psa*
