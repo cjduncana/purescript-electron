@@ -1,6 +1,6 @@
 {
   "name": "purescript-electron",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "homepage": "https://github.com/cjduncana/purescript-electron",
   "description": "FFI bindings for the Electron API",
   "keywords": [
