@@ -1,7 +1,7 @@
 {
   "name": "purescript-electron",
-  "version": "0.0.1",
-  "homepage": "https://github.com/bamboo/purescript-electron",
+  "version": "1.0.0",
+  "homepage": "https://github.com/cjduncana/purescript-electron",
   "description": "FFI bindings for the Electron API",
   "keywords": [
     "purescript",
@@ -10,7 +10,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git://github.com/bamboo/purescript-electron.git"
+    "url": "git://github.com/cjduncana/purescript-electron.git"
   },
   "ignore": [
     "bower_components"
