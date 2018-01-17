@@ -83,3 +83,45 @@ exports.onWillNavigate = function(webContents) {
     };
   };
 }
+
+exports.onDidNavigate = function(webContents) {
+  return function(callback) {
+    return function() {
+      return webContents.on('did-navigate', function(e, url) {
+        callback(e)(url)();
+      });
+    };
+  };
+}
+
+exports.onDidNavigateInPage = function(webContents) {
+  return function(callback) {
+    return function() {
+      return webContents.on('did-navigate-in-page', function(e, url) {
+        callback(e)(url)();
+      });
+    };
+  };
+}
+
+exports.onDidGetRedirectRequest = function(webContents) {
+  return function(callback) {
+    return function() {
+      return webContents.on('did-get-redirect-request', function(e, oldURL,
+                newURL, isMainFrame, httpResponseCode, requestMethod,
+                referrer, headers) {
+          callback(e)(oldURL)(newURL)(isMainFrame)(httpResponseCode)(requestMethod)(referrer)(headers)();
+      });
+    };
+  };
+}
+
+exports.onDomReady = function(webContents) {
+  return function(callback) {
+    return function() {
+      return webContents.on('dom-ready', function(e) {
+        callback(e)();
+      });
+    };
+  };
+}
