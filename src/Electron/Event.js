@@ -1,6 +1,4 @@
-"use strict";
-
-// module Electron.Event
+'use strict';
 
 exports.preventDefault = function(e) {
   return function() {

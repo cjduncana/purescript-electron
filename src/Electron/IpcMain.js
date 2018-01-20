@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 const ipcMain = require('electron').ipcMain;
 
@@ -21,7 +21,7 @@ exports.once = function(channel) {
 exports.removeListener = function(channel) {
   return function(listener) {
     return function() {
-      return ipcMain.removeListener(channel,listener);
+      return ipcMain.removeListener(channel, listener);
     };
   };
 };
@@ -41,5 +41,5 @@ exports.removeAllListeners = function() {
 exports.sender = function(e) {
   return function() {
     return e.sender;
-  }
+  };
 };

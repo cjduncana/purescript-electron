@@ -1,14 +1,12 @@
-"use strict";
-
-// module Electron.BrowserWindow
+'use strict';
 
 exports.newBrowserWindowImpl = function(options) {
   // require('electron') on demand so test suites can still run under node
-  var BrowserWindow = require('electron').BrowserWindow;
+  const BrowserWindow = require('electron').BrowserWindow;
   return function() {
     return new BrowserWindow(options);
   };
-}
+};
 
 exports.onClose = function(browserWindow) {
   return function(callback) {
@@ -18,7 +16,7 @@ exports.onClose = function(browserWindow) {
       });
     };
   };
-}
+};
 
 exports.loadURL = function(browserWindow) {
   return function(url) {
@@ -26,13 +24,13 @@ exports.loadURL = function(browserWindow) {
       return browserWindow.loadURL(url);
     };
   };
-}
+};
 
 exports.webContents = function(browserWindow) {
   return function() {
     return browserWindow.webContents;
   };
-}
+};
 
 exports.openDevToolsImpl = function(webContents) {
   return function(options) {
@@ -41,7 +39,7 @@ exports.openDevToolsImpl = function(webContents) {
       return {};
     };
   };
-}
+};
 
 exports.send = function(webContents) {
   return function(channel) {
@@ -49,10 +47,10 @@ exports.send = function(webContents) {
       return function() {
         webContents.send(channel, arg);
         return {};
-      }
-    }
-  }
-}
+      };
+    };
+  };
+};
 
 exports.onDidFinishLoad = function(webContent) {
   return function(callback) {
@@ -62,7 +60,7 @@ exports.onDidFinishLoad = function(webContent) {
       });
     };
   };
-}
+};
 
 exports.onNewWindow = function(webContents) {
   return function(callback) {
@@ -72,7 +70,7 @@ exports.onNewWindow = function(webContents) {
       });
     };
   };
-}
+};
 
 exports.onWillNavigate = function(webContents) {
   return function(callback) {
@@ -82,7 +80,7 @@ exports.onWillNavigate = function(webContents) {
       });
     };
   };
-}
+};
 
 exports.onDidNavigate = function(webContents) {
   return function(callback) {
@@ -92,7 +90,7 @@ exports.onDidNavigate = function(webContents) {
       });
     };
   };
-}
+};
 
 exports.onDidNavigateInPage = function(webContents) {
   return function(callback) {
@@ -102,19 +100,17 @@ exports.onDidNavigateInPage = function(webContents) {
       });
     };
   };
-}
+};
 
 exports.onDidGetRedirectRequest = function(webContents) {
   return function(callback) {
     return function() {
-      return webContents.on('did-get-redirect-request', function(e, oldURL,
-                newURL, isMainFrame, httpResponseCode, requestMethod,
-                referrer, headers) {
-          callback(e)(oldURL)(newURL)(isMainFrame)(httpResponseCode)(requestMethod)(referrer)(headers)();
+      return webContents.on('did-get-redirect-request', function(e, oldURL, newURL, isMainFrame, httpResponseCode, requestMethod, referrer, headers) {
+        callback(e)(oldURL)(newURL)(isMainFrame)(httpResponseCode)(requestMethod)(referrer)(headers)();
       });
     };
   };
-}
+};
 
 exports.onDomReady = function(webContents) {
   return function(callback) {
@@ -124,4 +120,4 @@ exports.onDomReady = function(webContents) {
       });
     };
   };
-}
+};

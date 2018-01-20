@@ -1,6 +1,5 @@
-"use strict";
+'use strict';
 
-const EventEmitter = require('electron').EventEmitter;
 const ipcRenderer  = require('electron').ipcRenderer;
 
 exports.on = function(channel) {
@@ -42,15 +41,15 @@ exports.removeAllChannelListeners = function() {
 exports.send = function(channel) {
   return function(arg) {
     return function() {
-      return ipcRenderer.send(channel,arg);
+      return ipcRenderer.send(channel, arg);
     };
   };
 };
 
-exports.sendSync = function (channel) {
+exports.sendSync = function(channel) {
   return function(arg) {
     return function() {
-      return ipcRenderer.sendSync(channel,arg);
+      return ipcRenderer.sendSync(channel, arg);
     };
   };
 };
@@ -58,7 +57,7 @@ exports.sendSync = function (channel) {
 exports.sendToHost = function(channel) {
   return function(arg) {
     return function() {
-      return ipcRenderer.sendToHost(channel,arg);
+      return ipcRenderer.sendToHost(channel, arg);
     };
   };
 };

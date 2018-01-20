@@ -1,22 +1,20 @@
-"use strict";
-
-// module Electron.App
+'use strict';
 
 const app = require('electron').app;
 
 exports.getAppPath = function() {
   return app.getAppPath();
-}
+};
 
 exports.getPath = function(path) {
   return function() {
     return app.getPath(camelCaseConstructorNameFor(path));
   };
-}
+};
 
 exports.quit = function() {
   return app.quit();
-}
+};
 
 exports.onReady = function(callback) {
   return function() {
@@ -24,7 +22,7 @@ exports.onReady = function(callback) {
       callback();
     });
   };
-}
+};
 
 exports.onAllWindowsClosed = function(callback) {
   return function() {
@@ -32,7 +30,7 @@ exports.onAllWindowsClosed = function(callback) {
       callback();
     });
   };
-}
+};
 
 function camelCaseConstructorNameFor(value) {
   const ctorName = value.constructor.name;
