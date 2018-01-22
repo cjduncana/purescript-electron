@@ -26,14 +26,10 @@ foreign import getPath :: forall eff. Path -> Eff (electron :: ELECTRON | eff) S
 foreign import quit :: forall eff. Eff (electron :: ELECTRON | eff) Unit
 
 
-foreign import onAllWindowsClosed :: forall eff
-   . Eff (electron :: ELECTRON | eff) Unit
-  -> Eff (electron :: ELECTRON | eff) Unit
+foreign import onAllWindowsClosed :: forall eff. Eff eff Unit -> Eff (electron :: ELECTRON | eff) Unit
 
 
 -- | Emitted when Electron has finished initialization.
 -- |
 -- | [Official Electron documentation](http://electron.atom.io/docs/all/#event-39-ready-39)
-foreign import onReady :: forall eff
-   . Eff (electron :: ELECTRON | eff) Unit
-  -> Eff (electron :: ELECTRON | eff) Unit
+foreign import onReady :: forall eff. Eff eff Unit -> Eff (electron :: ELECTRON | eff) Unit
