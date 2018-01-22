@@ -117,4 +117,4 @@ openDevTools wc =
 foreign import openDevToolsImpl :: forall eff. WebContents -> Json -> Eff (electron :: ELECTRON | eff) Unit
 
 
-foreign import send :: forall eff a. WebContents -> String -> a -> Eff (electron :: ELECTRON | eff) Unit
+foreign import send :: forall eff a. WebContents -> String -> Json -> Eff (electron :: ELECTRON | eff) Unit
