@@ -2,9 +2,18 @@
 
 exports.newBrowserWindowImpl = function(options) {
   // require('electron') on demand so test suites can still run under node
-  const BrowserWindow = require('electron').BrowserWindow;
+  const { BrowserWindow } = require('electron');
+
   return function() {
     return new BrowserWindow(options);
+  };
+};
+
+exports.loadURL = function(browserWindow) {
+  return function(url) {
+    return function() {
+      return browserWindow.loadURL(url);
+    };
   };
 };
 
@@ -18,37 +27,9 @@ exports.onClose = function(browserWindow) {
   };
 };
 
-exports.loadURL = function(browserWindow) {
-  return function(url) {
-    return function() {
-      return browserWindow.loadURL(url);
-    };
-  };
-};
-
 exports.webContents = function(browserWindow) {
   return function() {
     return browserWindow.webContents;
-  };
-};
-
-exports.openDevToolsImpl = function(webContents) {
-  return function(options) {
-    return function() {
-      webContents.openDevTools(options);
-      return {};
-    };
-  };
-};
-
-exports.send = function(webContents) {
-  return function(channel) {
-    return function(arg) {
-      return function() {
-        webContents.send(channel, arg);
-        return {};
-      };
-    };
   };
 };
 
@@ -62,21 +43,11 @@ exports.onDidFinishLoad = function(webContent) {
   };
 };
 
-exports.onNewWindow = function(webContents) {
+exports.onDidGetRedirectRequest = function(webContents) {
   return function(callback) {
     return function() {
-      return webContents.on('new-window', function(e, url) {
-        callback(e)(url)();
-      });
-    };
-  };
-};
-
-exports.onWillNavigate = function(webContents) {
-  return function(callback) {
-    return function() {
-      return webContents.on('will-navigate', function(e, url) {
-        callback(e)(url)();
+      return webContents.on('did-get-redirect-request', function(e, oldURL, newURL, isMainFrame, httpResponseCode, requestMethod, referrer, headers) {
+        callback(e)(oldURL)(newURL)(isMainFrame)(httpResponseCode)(requestMethod)(referrer)(headers)();
       });
     };
   };
@@ -102,22 +73,52 @@ exports.onDidNavigateInPage = function(webContents) {
   };
 };
 
-exports.onDidGetRedirectRequest = function(webContents) {
-  return function(callback) {
-    return function() {
-      return webContents.on('did-get-redirect-request', function(e, oldURL, newURL, isMainFrame, httpResponseCode, requestMethod, referrer, headers) {
-        callback(e)(oldURL)(newURL)(isMainFrame)(httpResponseCode)(requestMethod)(referrer)(headers)();
-      });
-    };
-  };
-};
-
 exports.onDomReady = function(webContents) {
   return function(callback) {
     return function() {
       return webContents.on('dom-ready', function(e) {
         callback(e)();
       });
+    };
+  };
+};
+
+exports.onNewWindow = function(webContents) {
+  return function(callback) {
+    return function() {
+      return webContents.on('new-window', function(e, url) {
+        callback(e)(url)();
+      });
+    };
+  };
+};
+
+exports.onWillNavigate = function(webContents) {
+  return function(callback) {
+    return function() {
+      return webContents.on('will-navigate', function(e, url) {
+        callback(e)(url)();
+      });
+    };
+  };
+};
+
+exports.openDevToolsImpl = function(webContents) {
+  return function(options) {
+    return function() {
+      webContents.openDevTools(options);
+      return {};
+    };
+  };
+};
+
+exports.send = function(webContents) {
+  return function(channel) {
+    return function(arg) {
+      return function() {
+        webContents.send(channel, arg);
+        return {};
+      };
     };
   };
 };

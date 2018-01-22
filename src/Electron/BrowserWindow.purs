@@ -1,149 +1,120 @@
 module Electron.BrowserWindow
-  ( BrowserWindowOption(..)
-  , WebPreference(..)
-  , BrowserWindowOptions(..)
-  , BrowserWindow()
+  ( BrowserWindow
+  , BrowserWindowOption(Height, Width, WebPreferences)
+  , WebPreference
+    ( AllowDisplayingInsecureContent
+    , AllowRunningInsecureContent
+    , OverlayScrollbars
+    , ZoomFactor
+    )
   , newBrowserWindow
-  , onClose
   , loadURL
-  , WebContents(..)
+  , onClose
+  , WebContents
   , webContents
-  , openDevTools
-  , DevToolOption(..)
-  , DevToolOptions(..)
-  , send
   , onDidFinishLoad
-  , onNewWindow
-  , onWillNavigate
+  , onDidGetRedirectRequest
   , onDidNavigate
   , onDidNavigateInPage
-  , onDidGetRedirectRequest
   , onDomReady
+  , onNewWindow
+  , onWillNavigate
+  , DevToolOption(Detach)
+  , openDevTools
+  , send
   ) where
 
-import Prelude (Unit, (>>>))
 import Control.Monad.Eff (Eff)
-import Data.Argonaut.Core (Json())
+import Data.Argonaut.Core (Json)
 import Data.Generic (class Generic)
 import Data.StrMap  (StrMap)
 import Electron (ELECTRON)
-import Electron.Options (encodeOptions)
 import Electron.Event (Event)
+import Electron.Options (encodeOptions)
+import Prelude (Unit, (>>>))
 
-data BrowserWindowOption
-  = Width Int
-  | Height Int
-  | WebPreferences (Array WebPreference)
-
-type BrowserWindowOptions = Array BrowserWindowOption
-
-data WebPreference
-  = ZoomFactor Number
-  | AllowDisplayingInsecureContent Boolean
-  | AllowRunningInsecureContent Boolean
-  | OverlayScrollbars Boolean
-
-derive instance genericBrowserWindowOption :: Generic BrowserWindowOption
-
-derive instance genericWebPreference :: Generic WebPreference
 
 foreign import data BrowserWindow :: Type
 
-newBrowserWindow :: forall eff
-   . BrowserWindowOptions
-  -> Eff (electron :: ELECTRON | eff) BrowserWindow
-newBrowserWindow = encodeOptions >>> newBrowserWindowImpl
+data BrowserWindowOption
+  = Height Int
+  | Width Int
+  | WebPreferences (Array WebPreference)
 
-foreign import newBrowserWindowImpl :: forall eff
-   . Json
-  -> Eff (electron :: ELECTRON | eff) BrowserWindow
+derive instance genericBrowserWindowOption :: Generic BrowserWindowOption
 
-foreign import loadURL :: forall eff
-   . BrowserWindow
-  -> String
-  -> Eff (electron :: ELECTRON | eff) Unit
+data WebPreference
+  = AllowDisplayingInsecureContent Boolean
+  | AllowRunningInsecureContent Boolean
+  | OverlayScrollbars Boolean
+  | ZoomFactor Number
 
-foreign import onClose :: forall eff
-   . BrowserWindow
-  -> Eff (electron :: ELECTRON | eff) Unit
-  -> Eff (electron :: ELECTRON | eff) Unit
+derive instance genericWebPreference :: Generic WebPreference
+
+newBrowserWindow :: forall eff. Array BrowserWindowOption -> Eff (electron :: ELECTRON | eff) BrowserWindow
+newBrowserWindow =
+  encodeOptions >>> newBrowserWindowImpl
+
+foreign import newBrowserWindowImpl :: forall eff. Json -> Eff (electron :: ELECTRON | eff) BrowserWindow
+
+
+foreign import loadURL :: forall eff. BrowserWindow -> String -> Eff (electron :: ELECTRON | eff) Unit
+
+
+foreign import onClose :: forall eff. BrowserWindow -> Eff eff Unit -> Eff (electron :: ELECTRON | eff) Unit
+
 
 foreign import data WebContents :: Type
 
-foreign import webContents :: forall eff
-   . BrowserWindow
-  -> Eff (electron :: ELECTRON | eff) WebContents
+foreign import webContents :: forall eff. BrowserWindow -> Eff (electron :: ELECTRON | eff) WebContents
 
--- | Opens the devtools.
--- |
--- | [Official Electron documentation](http://electron.atom.io/docs/all/#webcontents-opendevtools-options)
-openDevTools :: forall eff
-   . WebContents
-  -> DevToolOptions
-  -> Eff (electron :: ELECTRON | eff) Unit
-openDevTools wc = encodeOptions >>> openDevToolsImpl wc
 
-foreign import openDevToolsImpl :: forall eff
-   . WebContents
-  -> Json
-  -> Eff (electron :: ELECTRON | eff) Unit
+foreign import onDidFinishLoad :: forall eff. WebContents -> Eff eff Unit -> Eff (electron :: ELECTRON | eff) Unit
 
-data DevToolOption
-  = Detach Boolean
-
-type DevToolOptions = Array DevToolOption
-
-derive instance genericDevToolOption :: Generic DevToolOption
-
-foreign import send :: forall a eff
-   . WebContents
-  -> String
-  -> a
-  -> Eff (electron :: ELECTRON | eff) Unit
-
-foreign import onDidFinishLoad :: forall eff
-   . WebContents
-  -> Eff (electron :: ELECTRON | eff) Unit
-  -> Eff (electron :: ELECTRON | eff) Unit
-
-foreign import onNewWindow :: forall eff
-   . WebContents
-  -> (Event -> String -> Eff (electron :: ELECTRON | eff) Unit)
-  -> Eff (electron :: ELECTRON | eff) Unit
-
-foreign import onWillNavigate :: forall eff
-   . WebContents
-  -> (Event -> String -> Eff (electron :: ELECTRON | eff) Unit)
-  -> Eff (electron :: ELECTRON | eff) Unit
-
--- | Emitted when a navigation is done.
--- |
--- | [Official Electron documentation](http://electron.atom.io/docs/api/web-contents/#event-did-navigate)
-foreign import onDidNavigate :: forall eff
-   . WebContents
-  -> (Event -> String -> Eff (electron :: ELECTRON | eff) Unit)
-  -> Eff (electron :: ELECTRON | eff) Unit
-
--- | Emitted when an in-page navigation happened.
--- |
--- | [Official Electron documentation](http://electron.atom.io/docs/api/web-contents/#event-did-navigate-in-page)
-foreign import onDidNavigateInPage :: forall eff
-   . WebContents
-  -> (Event -> String -> Eff (electron :: ELECTRON | eff) Unit)
-  -> Eff (electron :: ELECTRON | eff) Unit
 
 -- | Emitted when a redirect is received while requesting a resource.
 -- |
 -- | [Official Electron documentation](http://electron.atom.io/docs/api/web-contents/#event-did-get-redirect-request)
-foreign import onDidGetRedirectRequest :: forall eff
-   .  WebContents
-   -> (Event -> String -> String -> Boolean -> Int -> String -> String -> StrMap String -> Eff (electron :: ELECTRON | eff) Unit)
-   -> Eff (electron :: ELECTRON | eff) Unit
+foreign import onDidGetRedirectRequest :: forall eff.  WebContents -> (Event -> String -> String -> Boolean -> Int -> String -> String -> StrMap String -> Eff eff Unit) -> Eff (electron :: ELECTRON | eff) Unit
+
+
+-- | Emitted when a navigation is done.
+-- |
+-- | [Official Electron documentation](http://electron.atom.io/docs/api/web-contents/#event-did-navigate)
+foreign import onDidNavigate :: forall eff. WebContents -> (Event -> String -> Eff eff Unit) -> Eff (electron :: ELECTRON | eff) Unit
+
+
+-- | Emitted when an in-page navigation happened.
+-- |
+-- | [Official Electron documentation](http://electron.atom.io/docs/api/web-contents/#event-did-navigate-in-page)
+foreign import onDidNavigateInPage :: forall eff. WebContents -> (Event -> String -> Eff eff Unit) -> Eff (electron :: ELECTRON | eff) Unit
+
 
 -- | Emitted when the document in the given frame is loaded.
 -- |
 -- | [Official Electron documentation](http://electron.atom.io/docs/api/web-contents/#event-dom-ready)
-foreign import onDomReady :: forall eff
-   . WebContents
-   -> (Event -> Eff (electron :: ELECTRON | eff) Unit)
-   -> Eff (electron :: ELECTRON | eff) Unit
+foreign import onDomReady :: forall eff. WebContents -> (Event -> Eff eff Unit) -> Eff (electron :: ELECTRON | eff) Unit
+
+
+foreign import onNewWindow :: forall eff. WebContents -> (Event -> String -> Eff eff Unit) -> Eff (electron :: ELECTRON | eff) Unit
+
+
+foreign import onWillNavigate :: forall eff. WebContents -> (Event -> String -> Eff eff Unit) -> Eff (electron :: ELECTRON | eff) Unit
+
+
+data DevToolOption
+  = Detach Boolean
+
+derive instance genericDevToolOption :: Generic DevToolOption
+
+-- | Opens the devtools.
+-- |
+-- | [Official Electron documentation](http://electron.atom.io/docs/all/#webcontents-opendevtools-options)
+openDevTools :: forall eff. WebContents -> Array DevToolOption -> Eff (electron :: ELECTRON | eff) Unit
+openDevTools wc =
+  encodeOptions >>> openDevToolsImpl wc
+
+foreign import openDevToolsImpl :: forall eff. WebContents -> Json -> Eff (electron :: ELECTRON | eff) Unit
+
+
+foreign import send :: forall eff a. WebContents -> String -> a -> Eff (electron :: ELECTRON | eff) Unit
