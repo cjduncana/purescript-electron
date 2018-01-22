@@ -9,6 +9,12 @@ exports.newBrowserWindowImpl = function(options) {
   };
 };
 
+exports.close = function(browserWindow) {
+  return function() {
+    browserWindow.close();
+  };
+};
+
 exports.loadURL = function(browserWindow) {
   return function(url) {
     return function() {

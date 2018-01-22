@@ -8,6 +8,8 @@ module Electron.BrowserWindow
     , ZoomFactor
     )
   , newBrowserWindow
+  -- Instance Methods
+  , close
   , loadURL
   , onClose
   , WebContents
@@ -56,6 +58,13 @@ newBrowserWindow =
   encodeOptions >>> newBrowserWindowImpl
 
 foreign import newBrowserWindowImpl :: forall eff. Json -> Eff (electron :: ELECTRON | eff) BrowserWindow
+
+-- | Try to close the window. This has the same effect as a user manually
+-- | clicking the close button of the window. The web page may cancel the close
+-- | though.
+-- |
+-- | [Official Electron documentation](https://electronjs.org/docs/api/browser-window#winclose)
+foreign import close :: forall eff. BrowserWindow -> Eff (electron :: ELECTRON | eff) Unit
 
 
 foreign import loadURL :: forall eff. BrowserWindow -> String -> Eff (electron :: ELECTRON | eff) Unit
