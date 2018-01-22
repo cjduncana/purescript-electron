@@ -2,6 +2,7 @@
 
 [![Latest release](http://img.shields.io/bower/v/purescript-electron.svg)](https://github.com/cjduncana/purescript-electron/releases)
 [![PureScript Electron on Pursuit](https://pursuit.purescript.org/packages/purescript-electron/badge)](https://pursuit.purescript.org/packages/purescript-electron)
+[![Dependency Status](https://img.shields.io/librariesio/github/cjduncana/purescript-electron.svg)](https://libraries.io/github/cjduncana/purescript-electron)
 
 PureScript FFI bindings for the [Electron](http://electron.atom.io) API.
 
