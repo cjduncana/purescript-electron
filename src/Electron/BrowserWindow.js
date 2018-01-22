@@ -23,6 +23,12 @@ exports.loadURL = function(browserWindow) {
   };
 };
 
+exports.minimize = function(browserWindow) {
+  return function() {
+    browserWindow.minimize();
+  };
+};
+
 exports.onClose = function(browserWindow) {
   return function(callback) {
     return function() {
