@@ -4,7 +4,7 @@
 [![PureScript Electron on Pursuit](https://pursuit.purescript.org/packages/purescript-electron/badge)](https://pursuit.purescript.org/packages/purescript-electron)
 [![Dependency Status](https://img.shields.io/librariesio/github/cjduncana/purescript-electron.svg)](https://libraries.io/github/cjduncana/purescript-electron)
 
-PureScript FFI bindings for the [Electron](http://electron.atom.io) API.
+PureScript FFI bindings for the [Electron](http://electron.atom.io) API. Tested in v1.7.10.
 
 See the [quick start project](https://github.com/cjduncana/purescript-electron-quickstart) for an example.
 
