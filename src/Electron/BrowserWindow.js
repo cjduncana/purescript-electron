@@ -45,6 +45,16 @@ exports.onClose = function(browserWindow) {
   };
 };
 
+exports.onClosed = function(browserWindow) {
+  return function(callback) {
+    return function() {
+      return browserWindow.on('closed', function() {
+        callback();
+      });
+    };
+  };
+};
+
 exports.onceReadyToShow = function(browserWindow) {
   return function(callback) {
     return function() {

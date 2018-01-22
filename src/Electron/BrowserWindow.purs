@@ -15,6 +15,7 @@ module Electron.BrowserWindow
   , show
   -- Instance Events
   , onClose
+  , onClosed
   , onceReadyToShow
   , WebContents
   , webContents
@@ -89,6 +90,13 @@ foreign import show :: forall eff. BrowserWindow -> Eff (electron :: ELECTRON | 
 
 
 foreign import onClose :: forall eff. BrowserWindow -> Eff eff Unit -> Eff (electron :: ELECTRON | eff) Unit
+
+
+-- | Emitted when the window is closed. After you have received this event you
+-- | should remove the reference to the window and avoid using it any more.
+-- |
+-- | [Official Electron documentation](https://electronjs.org/docs/api/browser-window#event-closed)
+foreign import onClosed :: forall eff. BrowserWindow -> Eff eff Unit -> Eff (electron :: ELECTRON | eff) Unit
 
 
 -- | Emitted when the web page has been rendered (while not being shown) and
