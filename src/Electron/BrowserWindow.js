@@ -29,6 +29,12 @@ exports.minimize = function(browserWindow) {
   };
 };
 
+exports.show = function(browserWindow) {
+  return function() {
+    browserWindow.show();
+  };
+};
+
 exports.onClose = function(browserWindow) {
   return function(callback) {
     return function() {

@@ -12,6 +12,7 @@ module Electron.BrowserWindow
   , close
   , loadURL
   , minimize
+  , show
   , onClose
   , WebContents
   , webContents
@@ -77,6 +78,12 @@ foreign import loadURL :: forall eff. BrowserWindow -> String -> Eff (electron :
 -- |
 -- | [Official Electron documentation](https://electronjs.org/docs/api/browser-window#winminimize)
 foreign import minimize :: forall eff. BrowserWindow -> Eff (electron :: ELECTRON | eff) Unit
+
+
+-- | Shows and gives focus to the window.
+-- |
+-- | [Official Electron documentation](https://electronjs.org/docs/api/browser-window#winshow)
+foreign import show :: forall eff. BrowserWindow -> Eff (electron :: ELECTRON | eff) Unit
 
 
 foreign import onClose :: forall eff. BrowserWindow -> Eff eff Unit -> Eff (electron :: ELECTRON | eff) Unit
