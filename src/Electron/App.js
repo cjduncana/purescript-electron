@@ -16,6 +16,14 @@ exports.quit = function() {
   return app.quit();
 };
 
+exports.onActivate = function(callback) {
+  return function() {
+    return app.on('activate', function() {
+      callback();
+    });
+  };
+};
+
 exports.onAllWindowsClosed = function(callback) {
   return function() {
     return app.on('window-all-closed', function() {
