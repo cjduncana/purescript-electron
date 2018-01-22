@@ -13,7 +13,9 @@ module Electron.BrowserWindow
   , loadURL
   , minimize
   , show
+  -- Instance Events
   , onClose
+  , onceReadyToShow
   , WebContents
   , webContents
   , onDidFinishLoad
@@ -87,6 +89,13 @@ foreign import show :: forall eff. BrowserWindow -> Eff (electron :: ELECTRON | 
 
 
 foreign import onClose :: forall eff. BrowserWindow -> Eff eff Unit -> Eff (electron :: ELECTRON | eff) Unit
+
+
+-- | Emitted when the web page has been rendered (while not being shown) and
+-- | window can be displayed without a visual flash.
+-- |
+-- | [Official Electron documentation](https://electronjs.org/docs/api/browser-window#event-ready-to-show)
+foreign import onceReadyToShow :: forall eff. BrowserWindow -> Eff eff Unit -> Eff (electron :: ELECTRON | eff) Unit
 
 
 foreign import data WebContents :: Type

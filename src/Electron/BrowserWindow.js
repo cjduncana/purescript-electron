@@ -45,6 +45,16 @@ exports.onClose = function(browserWindow) {
   };
 };
 
+exports.onceReadyToShow = function(browserWindow) {
+  return function(callback) {
+    return function() {
+      return browserWindow.once('ready-to-show', function() {
+        callback();
+      });
+    };
+  };
+};
+
 exports.webContents = function(browserWindow) {
   return function() {
     return browserWindow.webContents;
