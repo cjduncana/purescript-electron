@@ -11,7 +11,7 @@ import Electron.BrowserWindow (WebContents)
 -- | Listens to channel, when a new message arrives the listener is called.
 -- |
 -- | [Official Electron documentation](http://electron.atom.io/docs/api/ipc-main/#ipcmainonchannel-listener)
-foreign import on :: forall eff. Channel -> Listener eff -> Eff (electron :: ELECTRON | eff) Unit
+foreign import on :: forall eff. Channel -> Listener (electron :: ELECTRON | eff) -> Eff (electron :: ELECTRON | eff) Unit
 
 
 -- | Adds a one time listener function for the event.
@@ -19,14 +19,14 @@ foreign import on :: forall eff. Channel -> Listener eff -> Eff (electron :: ELE
 -- | after which it is removed.
 -- |
 -- | [Official Electron documentation](http://electron.atom.io/docs/api/ipc-main/#ipcmainoncechannel-listener)
-foreign import once :: forall eff. Channel -> Listener eff -> Eff (electron :: ELECTRON | eff) Unit
+foreign import once :: forall eff. Channel -> Listener (electron :: ELECTRON | eff) -> Eff (electron :: ELECTRON | eff) Unit
 
 
 -- | Removes the specified listener from the listener array for the
 -- | specified channel.
 -- |
 -- | [Official Electron documentation](http://electron.atom.io/docs/api/ipc-main/#ipcmainremovelistenerchannel-listener)
-foreign import removeListener :: forall eff. Channel -> Listener eff -> Eff (electron :: ELECTRON | eff) Unit
+foreign import removeListener :: forall eff. Channel -> Listener (electron :: ELECTRON | eff) -> Eff (electron :: ELECTRON | eff) Unit
 
 
 -- | Removes all listeners for the specified channel.

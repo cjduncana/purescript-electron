@@ -137,21 +137,21 @@ foreign import minimize :: forall eff. BrowserWindow -> Eff (electron :: ELECTRO
 foreign import show :: forall eff. BrowserWindow -> Eff (electron :: ELECTRON | eff) Unit
 
 
-foreign import onClose :: forall eff. BrowserWindow -> Eff eff Unit -> Eff (electron :: ELECTRON | eff) Unit
+foreign import onClose :: forall eff. BrowserWindow -> Eff (electron :: ELECTRON | eff) Unit -> Eff (electron :: ELECTRON | eff) Unit
 
 
 -- | Emitted when the window is closed. After you have received this event you
 -- | should remove the reference to the window and avoid using it any more.
 -- |
 -- | [Official Electron documentation](https://electronjs.org/docs/api/browser-window#event-closed)
-foreign import onClosed :: forall eff. BrowserWindow -> Eff eff Unit -> Eff (electron :: ELECTRON | eff) Unit
+foreign import onClosed :: forall eff. BrowserWindow -> Eff (electron :: ELECTRON | eff) Unit -> Eff (electron :: ELECTRON | eff) Unit
 
 
 -- | Emitted when the web page has been rendered (while not being shown) and
 -- | window can be displayed without a visual flash.
 -- |
 -- | [Official Electron documentation](https://electronjs.org/docs/api/browser-window#event-ready-to-show)
-foreign import onceReadyToShow :: forall eff. BrowserWindow -> Eff eff Unit -> Eff (electron :: ELECTRON | eff) Unit
+foreign import onceReadyToShow :: forall eff. BrowserWindow -> Eff (electron :: ELECTRON | eff) Unit -> Eff (electron :: ELECTRON | eff) Unit
 
 
 foreign import data WebContents :: Type
@@ -159,37 +159,37 @@ foreign import data WebContents :: Type
 foreign import webContents :: forall eff. BrowserWindow -> Eff (electron :: ELECTRON | eff) WebContents
 
 
-foreign import onDidFinishLoad :: forall eff. WebContents -> Eff eff Unit -> Eff (electron :: ELECTRON | eff) Unit
+foreign import onDidFinishLoad :: forall eff. WebContents -> Eff (electron :: ELECTRON | eff) Unit -> Eff (electron :: ELECTRON | eff) Unit
 
 
 -- | Emitted when a redirect is received while requesting a resource.
 -- |
 -- | [Official Electron documentation](http://electron.atom.io/docs/api/web-contents/#event-did-get-redirect-request)
-foreign import onDidGetRedirectRequest :: forall eff. WebContents -> (Event -> String -> String -> Boolean -> Int -> String -> String -> StrMap String -> Eff eff Unit) -> Eff (electron :: ELECTRON | eff) Unit
+foreign import onDidGetRedirectRequest :: forall eff. WebContents -> (Event -> String -> String -> Boolean -> Int -> String -> String -> StrMap String -> Eff (electron :: ELECTRON | eff) Unit) -> Eff (electron :: ELECTRON | eff) Unit
 
 
 -- | Emitted when a navigation is done.
 -- |
 -- | [Official Electron documentation](http://electron.atom.io/docs/api/web-contents/#event-did-navigate)
-foreign import onDidNavigate :: forall eff. WebContents -> (Event -> String -> Eff eff Unit) -> Eff (electron :: ELECTRON | eff) Unit
+foreign import onDidNavigate :: forall eff. WebContents -> (Event -> String -> Eff (electron :: ELECTRON | eff) Unit) -> Eff (electron :: ELECTRON | eff) Unit
 
 
 -- | Emitted when an in-page navigation happened.
 -- |
 -- | [Official Electron documentation](http://electron.atom.io/docs/api/web-contents/#event-did-navigate-in-page)
-foreign import onDidNavigateInPage :: forall eff. WebContents -> (Event -> String -> Eff eff Unit) -> Eff (electron :: ELECTRON | eff) Unit
+foreign import onDidNavigateInPage :: forall eff. WebContents -> (Event -> String -> Eff (electron :: ELECTRON | eff) Unit) -> Eff (electron :: ELECTRON | eff) Unit
 
 
 -- | Emitted when the document in the given frame is loaded.
 -- |
 -- | [Official Electron documentation](http://electron.atom.io/docs/api/web-contents/#event-dom-ready)
-foreign import onDomReady :: forall eff. WebContents -> (Event -> Eff eff Unit) -> Eff (electron :: ELECTRON | eff) Unit
+foreign import onDomReady :: forall eff. WebContents -> (Event -> Eff (electron :: ELECTRON | eff) Unit) -> Eff (electron :: ELECTRON | eff) Unit
 
 
-foreign import onNewWindow :: forall eff. WebContents -> (Event -> String -> Eff eff Unit) -> Eff (electron :: ELECTRON | eff) Unit
+foreign import onNewWindow :: forall eff. WebContents -> (Event -> String -> Eff (electron :: ELECTRON | eff) Unit) -> Eff (electron :: ELECTRON | eff) Unit
 
 
-foreign import onWillNavigate :: forall eff. WebContents -> (Event -> String -> Eff eff Unit) -> Eff (electron :: ELECTRON | eff) Unit
+foreign import onWillNavigate :: forall eff. WebContents -> (Event -> String -> Eff (electron :: ELECTRON | eff) Unit) -> Eff (electron :: ELECTRON | eff) Unit
 
 
 data DevToolOption
