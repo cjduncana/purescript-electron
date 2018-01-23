@@ -13,12 +13,12 @@ exports.getPath = function(path) {
 };
 
 exports.quit = function() {
-  return app.quit();
+  app.quit();
 };
 
 exports.onActivate = function(callback) {
   return function() {
-    return app.on('activate', function() {
+    app.on('activate', function() {
       callback();
     });
   };
@@ -26,7 +26,7 @@ exports.onActivate = function(callback) {
 
 exports.onAllWindowsClosed = function(callback) {
   return function() {
-    return app.on('window-all-closed', function() {
+    app.on('window-all-closed', function() {
       callback();
     });
   };
@@ -34,7 +34,7 @@ exports.onAllWindowsClosed = function(callback) {
 
 exports.onReady = function(callback) {
   return function() {
-    return app.on('ready', function() {
+    app.on('ready', function() {
       callback();
     });
   };

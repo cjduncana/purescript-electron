@@ -5,7 +5,7 @@ const ipcMain = require('electron').ipcMain;
 exports.on = function(channel) {
   return function(listener) {
     return function() {
-      return ipcMain.on(channel, listener);
+      ipcMain.on(channel, listener);
     };
   };
 };
@@ -13,7 +13,7 @@ exports.on = function(channel) {
 exports.once = function(channel) {
   return function(listener) {
     return function() {
-      return ipcMain.once(channel, listener);
+      ipcMain.once(channel, listener);
     };
   };
 };
@@ -21,7 +21,7 @@ exports.once = function(channel) {
 exports.removeListener = function(channel) {
   return function(listener) {
     return function() {
-      return ipcMain.removeListener(channel, listener);
+      ipcMain.removeListener(channel, listener);
     };
   };
 };

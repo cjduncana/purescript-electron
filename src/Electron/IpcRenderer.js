@@ -5,7 +5,7 @@ const ipcRenderer  = require('electron').ipcRenderer;
 exports.on = function(channel) {
   return function(listener) {
     return function() {
-      return ipcRenderer.on(channel, listener);
+      ipcRenderer.on(channel, listener);
     };
   };
 };
@@ -13,7 +13,7 @@ exports.on = function(channel) {
 exports.once = function(channel) {
   return function(listener) {
     return function() {
-      return ipcRenderer.once(channel, listener);
+      ipcRenderer.once(channel, listener);
     };
   };
 };
@@ -21,27 +21,27 @@ exports.once = function(channel) {
 exports.removeListener = function(channel) {
   return function(listener) {
     return function() {
-      return ipcRenderer.removeListener(channel, listener);
+      ipcRenderer.removeListener(channel, listener);
     };
   };
 };
 
 exports.removeAllListeners = function(channel) {
   return function() {
-    return ipcRenderer.removeAllListeners(channel);
+    ipcRenderer.removeAllListeners(channel);
   };
 };
 
 exports.removeAllChannelListeners = function() {
   return function() {
-    return ipcRenderer.removeAllListeners();
+    ipcRenderer.removeAllListeners();
   };
 };
 
 exports.send = function(channel) {
   return function(arg) {
     return function() {
-      return ipcRenderer.send(channel, arg);
+      ipcRenderer.send(channel, arg);
     };
   };
 };
@@ -49,7 +49,7 @@ exports.send = function(channel) {
 exports.sendSync = function(channel) {
   return function(arg) {
     return function() {
-      return ipcRenderer.sendSync(channel, arg);
+      ipcRenderer.sendSync(channel, arg);
     };
   };
 };
@@ -57,7 +57,7 @@ exports.sendSync = function(channel) {
 exports.sendToHost = function(channel) {
   return function(arg) {
     return function() {
-      return ipcRenderer.sendToHost(channel, arg);
+      ipcRenderer.sendToHost(channel, arg);
     };
   };
 };
