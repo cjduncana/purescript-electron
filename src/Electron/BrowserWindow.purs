@@ -3,6 +3,7 @@ module Electron.BrowserWindow
   , newBrowserWindow
   -- Browser Window Options
   , BrowserWindowOptions
+  , defaultBrowserWindowOptions
   , changeWidth
   , changeHeight
   , hidden
