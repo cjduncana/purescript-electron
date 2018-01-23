@@ -1,6 +1,6 @@
 'use strict';
 
-exports.newBrowserWindowImpl = function(options) {
+exports.newBrowserWindow = function(options) {
   // require('electron') on demand so test suites can still run under node
   const { BrowserWindow } = require('electron');
 
