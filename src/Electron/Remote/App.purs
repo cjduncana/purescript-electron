@@ -2,7 +2,7 @@ module Electron.Remote.App (getAppPath, getPath, quit) where
 
 import Control.Monad.Eff (Eff)
 import Electron (ELECTRON)
-import Electron.App (Path(AppData, Documents, Home))
+import Electron.App (Path(..))
 import Prelude (Unit, (>>>))
 
 
@@ -17,9 +17,19 @@ foreign import getAppPath :: forall eff. Eff (electron :: ELECTRON | eff) String
 stringifyPath :: Path -> String
 stringifyPath =
   case _ of
-    AppData -> "appData"
-    Documents -> "documents"
     Home -> "home"
+    AppData -> "appData"
+    UserData -> "userData"
+    Temporary -> "temp"
+    Executable -> "exe"
+    Module -> "module"
+    Desktop -> "desktop"
+    Documents -> "documents"
+    Downloads -> "downloads"
+    Music -> "music"
+    Pictures -> "pictures"
+    Videos -> "videos"
+    PepperFlash -> "pepperFlashSystemPlugin"
 
 foreign import getPath_ :: forall eff. String -> Eff (electron :: ELECTRON | eff) String
 

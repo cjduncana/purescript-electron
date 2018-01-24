@@ -1,6 +1,6 @@
 module Electron.App
   ( getAppPath
-  , Path(AppData, Documents, Home)
+  , Path(..)
   , getPath
   , quit
   , onActivate
@@ -20,9 +20,19 @@ foreign import getAppPath :: forall eff. Eff (electron :: ELECTRON | eff) String
 
 
 data Path
-  = AppData
+  = Home
+  | AppData
+  | UserData
+  | Temporary
+  | Executable
+  | Module
+  | Desktop
   | Documents
-  | Home
+  | Downloads
+  | Music
+  | Pictures
+  | Videos
+  | PepperFlash
 
 -- TODO: Expose this function when you figure out how to expose a function
 -- without it being part of the public API
@@ -30,9 +40,19 @@ data Path
 stringifyPath :: Path -> String
 stringifyPath =
   case _ of
-    AppData -> "appData"
-    Documents -> "documents"
     Home -> "home"
+    AppData -> "appData"
+    UserData -> "userData"
+    Temporary -> "temp"
+    Executable -> "exe"
+    Module -> "module"
+    Desktop -> "desktop"
+    Documents -> "documents"
+    Downloads -> "downloads"
+    Music -> "music"
+    Pictures -> "pictures"
+    Videos -> "videos"
+    PepperFlash -> "pepperFlashSystemPlugin"
 
 foreign import getPath_ :: forall eff. String -> Eff (electron :: ELECTRON | eff) String
 
