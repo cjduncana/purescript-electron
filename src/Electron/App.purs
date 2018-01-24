@@ -10,7 +10,7 @@ module Electron.App
 
 import Control.Monad.Eff (Eff)
 import Electron (ELECTRON)
-import Prelude (Unit)
+import Prelude (Unit, (>>>))
 
 
 -- | The current application directory.
@@ -24,10 +24,24 @@ data Path
   | Documents
   | Home
 
+-- TODO: Expose this function when you figure out how to expose a function
+-- without it being part of the public API
+-- Duplicate function found in Electron.Remote.App
+stringifyPath :: Path -> String
+stringifyPath =
+  case _ of
+    AppData -> "appData"
+    Documents -> "documents"
+    Home -> "home"
+
 -- | A path to a special directory or file.
 -- |
 -- | [Official Electron documentation](https://electronjs.org/docs/api/app#appgetpathname)
-foreign import getPath :: forall eff. Path -> Eff (electron :: ELECTRON | eff) String
+foreign import getPath_ :: forall eff. String -> Eff (electron :: ELECTRON | eff) String
+
+getPath :: forall eff. Path -> Eff (electron :: ELECTRON | eff) String
+getPath =
+  stringifyPath >>> getPath_
 
 
 -- | Try to close all windows.
