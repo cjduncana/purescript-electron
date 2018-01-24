@@ -13,6 +13,9 @@ import Electron (ELECTRON)
 import Prelude (Unit)
 
 
+-- | The current application directory.
+-- |
+-- | [Official Electron documentation](https://electronjs.org/docs/api/app#appgetapppath)
 foreign import getAppPath :: forall eff. Eff (electron :: ELECTRON | eff) String
 
 
@@ -21,9 +24,15 @@ data Path
   | Documents
   | Home
 
+-- | A path to a special directory or file.
+-- |
+-- | [Official Electron documentation](https://electronjs.org/docs/api/app#appgetpathname)
 foreign import getPath :: forall eff. Path -> Eff (electron :: ELECTRON | eff) String
 
 
+-- | Try to close all windows.
+-- |
+-- | [Official Electron documentation](https://electronjs.org/docs/api/app#appquit)
 foreign import quit :: forall eff. Eff (electron :: ELECTRON | eff) Unit
 
 
@@ -36,6 +45,11 @@ foreign import quit :: forall eff. Eff (electron :: ELECTRON | eff) Unit
 foreign import onActivate :: forall eff. Eff (electron :: ELECTRON | eff) Unit -> Eff (electron :: ELECTRON | eff) Unit
 
 
+-- | If you do not subscribe to this event and all windows are closed, the
+-- | default behavior is to quit the app; however, if you subscribe, you control
+-- | whether the app quits or not.
+-- |
+-- | [Official Electron documentation](https://electronjs.org/docs/api/app#event-window-all-closed)
 foreign import onAllWindowsClosed :: forall eff. Eff (electron :: ELECTRON | eff) Unit -> Eff (electron :: ELECTRON | eff) Unit
 
 
