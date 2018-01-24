@@ -34,11 +34,11 @@ stringifyPath =
     Documents -> "documents"
     Home -> "home"
 
+foreign import getPath_ :: forall eff. String -> Eff (electron :: ELECTRON | eff) String
+
 -- | A path to a special directory or file.
 -- |
 -- | [Official Electron documentation](https://electronjs.org/docs/api/app#appgetpathname)
-foreign import getPath_ :: forall eff. String -> Eff (electron :: ELECTRON | eff) String
-
 getPath :: forall eff. Path -> Eff (electron :: ELECTRON | eff) String
 getPath =
   stringifyPath >>> getPath_
